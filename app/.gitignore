@@ -1,4 +1,10 @@
-/build
+# Non-project-specific build files:
+build.xml
 local.properties
-.build/*
-.idea/*
+/gradlew
+/gradlew.bat
+/gradle
+.idea
+
+# Gradle builds
+/build
