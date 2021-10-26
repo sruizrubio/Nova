@@ -5,6 +5,8 @@ local.properties
 /gradlew.bat
 /gradle
 .idea
+.gradle
+.build
 
 # Gradle builds
 /build
