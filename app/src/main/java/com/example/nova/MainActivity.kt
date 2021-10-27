@@ -1,21 +1,40 @@
 package com.example.nova
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.widget.TextView
 import com.example.nova.models.Persona
+import com.example.nova.models.media
+import com.example.nova.models.notaFinal
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val a = Persona("", "", 180)
-        val b = Persona("", "")
-        val c = Persona("", "", 190)
-        val d = Persona("", "", -25)
+        findViewById<TextView>(R.id.myText).text = resultadosALumnos()
+    }
 
-        findViewById<TextView>(R.id.myText).text = contar1().toString()
+    private fun resultadosALumnos(): String {
+        val alumnos = listOf(
+            Persona("a", "A", notas = mutableListOf(-11.0, -2.0, -5.0)),
+            Persona("b", "B", notas = mutableListOf(11.0, 12.0, 15.0)),
+            Persona("c", "C", notas = mutableListOf(2.0, 3.0, 4.0)),
+            Persona("d", "D", notas = mutableListOf(5.0, 6.0, 7.0)),
+            Persona("e", "E", notas = mutableListOf(7.0, 7.5, 8.0)),
+            Persona("f", "F", notas = mutableListOf(8.0, 9.0, 10.0)),
+            Persona("g", "G", notas = mutableListOf(2.5, 8.0, 5.5)),
+            Persona("h", "H", notas = mutableListOf(4.0, 0.0, 9.0)),
+            Persona("i", "I", notas = mutableListOf(4.5, 8.5, 7.7)),
+            Persona("j", "J", notas = mutableListOf())
+        )
+
+        var resultados = ""
+
+        alumnos.forEach { resultados += it.getNombre() + " " + it.getApellido() + " - " +
+                it.media() + ": " + it.notaFinal() + "\n" }
+
+        return resultados
     }
 
     fun contar1(): Int {
