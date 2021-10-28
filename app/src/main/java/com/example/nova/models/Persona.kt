@@ -35,7 +35,7 @@ class Persona(private val nombre: String, private val apellido: String,
 }
 
 fun Persona.media(): Double {
-    val media: Double
+    var media: Double = 0.0
     val notas = getNotas()
 
     if (notas.isEmpty())
@@ -46,7 +46,7 @@ fun Persona.media(): Double {
             sumaNotas += it
         }
 
-        media = DecimalFormat("0.00").format(sumaNotas / notas.size).toDouble()
+        //media = DecimalFormat("0.00").format(sumaNotas / notas.size).toDouble()
     }
 
     return media

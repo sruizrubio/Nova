@@ -1,23 +1,54 @@
 package com.example.nova
 
+import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.nova.adapters.MyAdapter
+import com.example.nova.adapters.MyListAdapter
+import com.example.nova.databinding.ActivityMainBinding
 import com.example.nova.models.Persona
 import com.example.nova.models.media
 import com.example.nova.models.notaFinal
 
 class MainActivity : AppCompatActivity() {
+
+    var _binding: ActivityMainBinding? = null
+    lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        savedInstanceState?.getString("nombrePersona")
 
-        findViewById<TextView>(R.id.myText).text = resultadosALumnos()
+        _binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = _binding!!
+
+        setContentView(binding.root)
+
+        binding.apply {
+            myText.text = resultadosALumnos()
+
+            val myList = mutableListOf("1","2","3","4","5","6","7","8","9","10")
+
+            myRecyclerView.layoutManager = LinearLayoutManager(applicationContext, LinearLayoutManager.VERTICAL, false)
+//                var adapter = MyAdapter(myList)
+                var adapter = MyListAdapter()
+            myRecyclerView.adapter = adapter
+            adapter.submitList(myList)
+
+            myText.setOnClickListener {
+                val intent = Intent(applicationContext, LoginActivity::class.java)
+                intent.putExtra("nombrePersona", "nombre1")
+                startActivity(intent)
+            }
+        }
+        this.finish()
     }
 
     private fun resultadosALumnos(): String {
         val alumnos = listOf(
-            Persona("a", "A", notas = mutableListOf(-11.0, -2.0, -5.0)),
+            Persona("a", "A", notas = mutableListOf(10.0, 2.0, 5.0)),
             Persona("b", "B", notas = mutableListOf(11.0, 12.0, 15.0)),
             Persona("c", "C", notas = mutableListOf(2.0, 3.0, 4.0)),
             Persona("d", "D", notas = mutableListOf(5.0, 6.0, 7.0)),
@@ -37,50 +68,32 @@ class MainActivity : AppCompatActivity() {
         return resultados
     }
 
-    fun contar1(): Int {
-
-        var suma = 0
-        for (i in 1..10) {
-            suma+=i
-        }
-        return suma
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
     }
 
-    fun contar2(): Int{
-        var suma = 0
-        for (i in 1..10) {
-            suma += i
-            if (i >= 6)
-                break
-        }
-        return suma
+    override fun onRestart() {
+        super.onRestart()
     }
 
-    fun contar3(): Int {
-        var suma = 0
-        for (i in 1 until 10) {
-            suma+=i
-        }
-        return suma
+    override fun onResume() {
+        super.onResume()
     }
 
-    fun contar4(): Int{
-        var suma = 0
-        var count = 0
-        while(count < 3) {
-            for (i in 1..10) {
-                suma += i
-            }
-            count++
-        }
-        return suma
+    override fun onPause() {
+        super.onPause()
     }
 
-    fun foreach(){
-        val list: List<String> = listOf()
-        list.forEach {
-            if(list.indexOf(it) == 2)
-                return@forEach
-        }
+    override fun onStop() {
+        super.onStop()
+    }
+
+    override fun onStart() {
+        super.onStart()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }
